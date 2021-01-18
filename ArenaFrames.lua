@@ -572,8 +572,8 @@ function ArenaHandler:UpdateClass(target, class)
 	classIcon:Show()
 	classIcon:SetTexCoord(unpack(CLASS_BUTTONS[class]))
 	
-	local hp = _G[unit..'_HealthBar']
-	hp:SetStatusBarColor(hpColors[class].r, hpColors[class].g, hpColors[class].b)
+	local health = _G[unit..'_HealthBar']
+	health:SetStatusBarColor(hpColors[class].r, hpColors[class].g, hpColors[class].b)
 	
 	local power = _G[unit..'_ManaBar']
 	power:SetStatusBarColor(mpColors[class].r, mpColors[class].g, mpColors[class].b)
@@ -620,6 +620,7 @@ function ArenaHandler:UpdateHealth(target, value, type)
 
 	local health = _G[unit..'_HealthBar']
 	local healthText = _G[unit..'_frameHealthText']
+	
 	if type == 'current' then
 		health:SetValue(value)
 		if arenaUnits[nameToUnit[target]].maxHP then
@@ -906,6 +907,8 @@ function ArenaHandler:Execute(target, prefix, ...)
 		unitBuffs['arena'..enemyCount] = { }
 		unitDebuffs['arena'..enemyCount] = { }
 		self:UpdateName(target)
+		self:UpdateClass(target)
+		self:UpdateHealth(target)
     end
 
     if (prefix == 'CHP') then
